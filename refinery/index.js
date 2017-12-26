@@ -1,18 +1,13 @@
-module.exports =  {
-  RandomInteger      : function(min, max){
-    var random_number =  Math.floor(Math.random()*(max-min+1)+min);
-    return random_number;
-  },
+var CrossoverJS = require('./crossover');
+var random      = require('./random');
 
-  RandomFloat      : function(min, max){
-    var random_number =  Math.random()*(max-min+1)+min;
-    return random_number;
-  },
+module.exports =  {
 
   GenerateGenome    : function(genome_length, character_pool){
     var Genome    = "";
   
     for (var i = 0; i < genome_length; i++){
+      // FIXME: Use random instead
       Genome += character_pool.charAt(Math.floor(Math.random() * character_pool.length));
     }
 
@@ -31,7 +26,7 @@ module.exports =  {
   RandomizeGenome   : function(genome, mutation_rate){
     var new_genome = [];
     for (let index = 0; index < genome.length; index++) {
-      var random_float = this.RandomFloat(0, 1);
+      var random_float = random.RandomFloat(0, 1);
       if (random_float < mutation_rate) {
         new_genome.push(this.SwapGene(genome[index]));
       } else{
@@ -60,5 +55,9 @@ module.exports =  {
       new_population.push(this.RandomizeGenome(genome, mutation_rate));
     }
     return new_population;
-  }
+  },
+
+  Crossover   : {
+    OnePoint  : CrossoverJS.OnePointCrossOver
+  },
 };
