@@ -7,8 +7,7 @@ module.exports =  {
     var Genome    = "";
   
     for (var i = 0; i < genome_length; i++){
-      // FIXME: Use random instead
-      Genome += character_pool.charAt(Math.floor(Math.random() * character_pool.length));
+      Genome += character_pool.charAt(random.RandomInteger(0, character_pool.length));
     }
 
     return Genome;
